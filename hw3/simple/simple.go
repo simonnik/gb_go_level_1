@@ -21,9 +21,7 @@ func main() {
 }
 
 func getSimpleNumbers(N int) (primes []int) {
-	b := make([]bool, N)
-	primes = append(primes, 0)
-	primes = append(primes, 1)
+	b := make(map[int]bool, N)
 
 	for i := 2; i < N; i++ {
 		if b[i] {

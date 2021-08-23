@@ -30,6 +30,7 @@ func main() {
 	_, err = fmt.Scanln(&operation)
 
 	if err != nil {
+		fmt.Println("Выберите операцию")
 		return
 	}
 
