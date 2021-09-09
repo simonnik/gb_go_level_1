@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/simonnik/go_level_1/hw2/helper"
+	"github.com/simonnik/gb_go_level_1/hw2/helper"
 )
 
 func main() {
