@@ -9,9 +9,8 @@ import (
 )
 
 type Config struct {
-	Port  string `envconfig:"PORT" default:"8080" required:"true"`
-	DbUrl string `envconfig:"DB_URL" default:"postgres://db-user:db-password@petstore-db:5432/petstore?sslmode
-=disable" required:"true"`
+	Port        string `envconfig:"PORT" default:"8080" required:"true"`
+	DbUrl       string `envconfig:"DB_URL" default:"postgres://db-user:db-password@petstore-db:5432/petstore?sslmode=disable" required:"true"`
 	JaegerUrl   string `envconfig:"JAEGER_URL" default:"http://jaeger:16686" required:"true"`
 	KafkaBroker string `envconfig:"KAFKA_BROKER" default:"kafka:9092" required:"true"`
 }
