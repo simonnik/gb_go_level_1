@@ -1,14 +1,14 @@
 package main
 
 import (
-	"./config"
+	"github.com/simonnik/gb_go_level_1/hw8/config"
 	"log"
 )
 
 func main() {
 	conf, err := config.New()
 	if err != nil {
-		log.Println("Error reading config.")
+		log.Println("Error reading config.", err)
 		return
 	}
 	log.Println("Config properties:")

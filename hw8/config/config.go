@@ -18,7 +18,7 @@ type Config struct {
 
 func New() (*Config, error) {
 	conf := &Config{}
-	err := envconfig.Process("", &conf)
+	err := envconfig.Process("", conf)
 	if err != nil {
 		return nil, fmt.Errorf("can't process the config: %w", err)
 	}
@@ -29,7 +29,7 @@ func New() (*Config, error) {
 	return conf, errors.New("Malformed Config")
 }
 
-func (c Config) Validate() bool {
+func (c *Config) Validate() bool {
 	if c.Port == "" {
 		log.Fatal("Acceptable ports are 80 and 8080. Provided:", c.Port)
 		return false
