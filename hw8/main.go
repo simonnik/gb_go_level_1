@@ -6,7 +6,8 @@ import (
 )
 
 func main() {
-	conf, err := config.New()
+	conf := config.New()
+	conf, err := config.Load(conf)
 	if err != nil {
 		log.Println("Error reading config.", err)
 		return

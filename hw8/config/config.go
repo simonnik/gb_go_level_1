@@ -15,17 +15,20 @@ type Config struct {
 	KafkaBroker string `envconfig:"KAFKA_BROKER" default:"kafka:9092" required:"true"`
 }
 
-func New() (*Config, error) {
-	conf := &Config{}
-	err := envconfig.Process("", conf)
+func New() *Config {
+	return &Config{}
+}
+
+func Load(c *Config) (*Config, error) {
+	err := envconfig.Process("", c)
 	if err != nil {
 		return nil, fmt.Errorf("can't process the config: %w", err)
 	}
-	isValid := conf.Validate()
+	isValid := c.Validate()
 	if isValid {
-		return conf, nil
+		return c, nil
 	}
-	return conf, errors.New("Malformed Config")
+	return c, errors.New("Malformed Config")
 }
 
 func (c *Config) Validate() bool {
