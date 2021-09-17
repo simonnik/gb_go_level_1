@@ -3,7 +3,6 @@ package config
 import (
 	"encoding/json"
 	"errors"
-	"flag"
 	"fmt"
 	"gopkg.in/yaml.v3"
 	"log"
@@ -19,14 +18,7 @@ type Config struct {
 	Timeout int64  `yaml:"timeout" json:"timeout"`
 }
 
-func New() *Config {
-	return &Config{}
-}
-func Load(conf *Config) (*Config, error) {
-	var configFile = flag.String("file", "", "Path to yaml or json config file")
-
-	flag.Parse()
-
+func Load(configFile *string) (*Config, error) {
 	var err error
 
 	if _, statErr := os.Stat(*configFile); statErr != nil {
@@ -45,6 +37,8 @@ func Load(conf *Config) (*Config, error) {
 		}
 	}()
 
+	var conf *Config
+
 	switch strings.ToLower(path.Ext(*configFile))[1:] {
 	case "yaml", "yml":
 		err = yaml.NewDecoder(file).Decode(&conf)
@@ -62,19 +56,19 @@ func Load(conf *Config) (*Config, error) {
 		return nil, errors.New("unknown config file")
 	}
 
-	isValid := conf.Validate()
-	if isValid {
+	isOk, err := conf.Validate()
+
+	if isOk {
 		return conf, nil
 	}
-	return conf, errors.New("Malformed Config")
+	return conf, err
 }
 
-func (c *Config) Validate() bool {
+func (c *Config) Validate() (bool, error) {
 	_, err := url.ParseRequestURI(c.Host)
 	if err != nil {
-		log.Fatal("Invalid host:", c.Host)
-		return false
+		return false, err
 	}
 
-	return true
+	return true, nil
 }

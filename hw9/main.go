@@ -1,13 +1,16 @@
 package main
 
 import (
+	"flag"
 	"github.com/simonnik/gb_go_level_1/hw9/config"
 	"log"
 )
 
 func main() {
-	conf := config.New()
-	conf, err := config.Load(conf)
+	var configFile = flag.String("file", "", "Path to yaml or json config file")
+
+	flag.Parse()
+	conf, err := config.Load(configFile)
 	if err != nil {
 		log.Println("Error reading config.", err)
 		return
