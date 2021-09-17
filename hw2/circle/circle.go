@@ -1,18 +1,12 @@
-package main
+package circle
 
 import (
-	"fmt"
-	"github.com/simonnik/gb_go_level_1/hw2/helper"
 	"math"
 )
 
-func main() {
-	fmt.Println("Введите площадь круга:")
-	s, err := helper.GetInputValue()
-
-	if err != nil {
-		return
-	}
-	fmt.Println("Длина окружности:", math.Sqrt(s*4*math.Pi))
-	fmt.Println("Диаметр окружности:", 2*math.Sqrt(s/math.Pi))
+func Diameter(radius float64) float64 {
+	return 2 * radius
+}
+func Length(diameter float64) float64 {
+	return diameter * math.Pi
 }
