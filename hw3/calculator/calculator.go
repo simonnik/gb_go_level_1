@@ -1,53 +1,46 @@
-package main
+package calculator
 
 import (
-	"fmt"
+	"math"
 )
 
-func main() {
-	fmt.Println("Введите число a:")
-	var a float64
-	_, err := fmt.Scan(&a)
+type Calc struct {
+	X        float64
+	Y        float64
+	Operator string
+}
 
-	if err != nil {
-		fmt.Println("Введите число")
-		return
+func (c *Calc) Add() float64 {
+	return c.X + c.Y
+}
+
+func (c *Calc) Substract() float64 {
+	return c.X - c.Y
+}
+
+func (c *Calc) Multiply() float64 {
+	return c.X * c.Y
+}
+
+func (c *Calc) Divide() float64 {
+	if c.Y == 0 {
+		return math.Inf(int(c.X))
+	} else {
+		return c.X / c.Y
 	}
+}
 
-	fmt.Println("Введите число b:")
-	var b float64
-	_, err = fmt.Scan(&b)
-
-	if err != nil {
-		fmt.Println("Введите число")
-		return
-	}
-
-	fmt.Println("Выберите операцию: +, -, *, /")
-
-	var operation string
-
-	_, err = fmt.Scanln(&operation)
-
-	if err != nil {
-		fmt.Println("Выберите операцию")
-		return
-	}
-
-	switch operation {
+func (c *Calc) Calculate() float64 {
+	var result float64
+	switch c.Operator {
 	case "+":
-		fmt.Println("Результат:", a+b)
+		result = c.Add()
 	case "-":
-		fmt.Println("Результат:", a-b)
+		result = c.Substract()
 	case "*":
-		fmt.Println("Результат:", a*b)
+		result = c.Multiply()
 	case "/":
-		if b != 0 {
-			fmt.Println("Результат:", a/b)
-		} else {
-			fmt.Println("Деление на 0")
-		}
-	default:
-		fmt.Println("Неизвестная операция")
+		result = c.Divide()
 	}
+	return result
 }
